@@ -2,11 +2,11 @@
 
 import app from "./app.js";
 import { sequelize } from "./database/database.js"
-import "./models/Project.js"
-import "./models/Task.js"
+// router.get("/projects")
+
 const main = async () => {
     try {
-        await sequelize.sync({force: true})
+        await sequelize.sync({force: false}) //  true -> elimina todo en la tabla cada vez que levanto el servidor y en false, no elimina las trablas preexistentes
         // await sequelize.authenticate();
         // console.log('Connection has been established successfully.');
         app.listen(3000)
