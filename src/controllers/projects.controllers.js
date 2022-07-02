@@ -63,10 +63,6 @@ export const deleteProject = async (req, res) => {
     res.json(projectUpdate);
 }
 
-
-
-
-
 export const getProjectId = async (req, res) => {
     const { id } = req.params
     try {
