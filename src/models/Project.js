@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize"
 import { sequelize } from "../database/database.js";
-
+import {Task} from  "./Task.js"
 
 
 export const Project = sequelize.define("Project", {
@@ -21,3 +21,11 @@ export const Project = sequelize.define("Project", {
         type: DataTypes.STRING
     }
 },{ timestamps: false});
+
+
+Project.hasMany(Task, { 
+    sourceKey: 'id',
+    foreignKey: 'projectId' });
+    Task.belongsTo(Project, {
+       target: 'id', 
+       foreignKey:  'projectId' });
