@@ -1,5 +1,6 @@
 
 import { Project } from "../models/Project.js"
+import { Task } from "../models/Task.js";
 
 export const getProjects = async (req, res) => {
 
@@ -66,7 +67,7 @@ export const deleteProject = async (req, res) => {
 export const getProjectId = async (req, res) => {
     const { id } = req.params
     try {
-        
+
         const project = await Project.findByPk(id);
         if (project === null) {
             res.status(404).send('Not found!');
@@ -81,5 +82,28 @@ export const getProjectId = async (req, res) => {
 
     } catch (error) {
         res.status(404).json({ message: error.message })
+    }
+}
+
+export const getProjectTasks = async (req, res) => {
+    const { id } = req.params
+
+    try {
+        const project = await Project.findByPk(id);
+        if (project === null) {
+            res.status(404).send('Not found!');
+        } else {
+            // si existe
+            // buscar las tasks que le corresponden
+            const projectTasks = await Task.findAll({
+                where: {
+                    projectId: id
+                }
+            })
+            res.json(projectTasks)
+        }
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+
     }
 }
